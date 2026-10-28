@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.vetclinic.sale.FoodSaleApiTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.179 s -- in com.vetclinic.sale.FoodSaleApiTest

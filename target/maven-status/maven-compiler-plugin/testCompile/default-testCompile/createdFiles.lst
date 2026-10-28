@@ -1,0 +1,11 @@
+com/vetclinic/security/oauth2/OAuth2ConfigurationTest.class
+com/vetclinic/sale/ConcurrentSaleTest.class
+com/vetclinic/ApiIntegrationTestBase.class
+com/vetclinic/owner/OwnerApiTest.class
+com/vetclinic/common/ErrorContractTest.class
+com/vetclinic/portal/ClientShopApiTest.class
+com/vetclinic/appointment/AppointmentApiTest.class
+com/vetclinic/pet/PetApiTest.class
+com/vetclinic/sale/FoodSaleApiTest.class
+com/vetclinic/auth/AuthApiTest.class
+com/vetclinic/adoption/AdoptionApiTest.class
