@@ -1,0 +1,76 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: vet-clinic-api
+
+  datasource:
+    # In-memory H2. Swap this block for a real driver to run on PostgreSQL or MySQL, nothing else changes.
+    url: jdbc:h2:mem:vetclinic;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+      indent-output: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            # Create an OAuth App at https://github.com/settings/developers and register
+            # http://localhost:8080/login/oauth2/code/github as the callback URL.
+            # Enable it with GITHUB_OAUTH_ENABLED=true plus GITHUB_CLIENT_ID/GITHUB_CLIENT_SECRET.
+            # With the defaults below the GitHub button stays hidden and local login keeps working.
+            client-id: ${GITHUB_CLIENT_ID:github-not-configured}
+            client-secret: ${GITHUB_CLIENT_SECRET:github-not-configured}
+            scope: read:user,user:email
+
+app:
+  seed:
+    enabled: true
+  security:
+    jwt:
+      # HS256 secret. Override it in every real deployment: export APP_JWT_SECRET=...
+      # Must be at least 32 bytes long.
+      secret: ${APP_JWT_SECRET:dev-only-secret-change-me-in-production-0123456789}
+      issuer: vet-clinic-api
+      access-token-ttl: 15m
+    refresh-token-ttl: 7d
+    refresh-cookie-secure: false
+    cors-allowed-origins: http://localhost:5173,http://127.0.0.1:5173
+    oauth2:
+      enabled: ${GITHUB_OAUTH_ENABLED:false}
+      success-redirect: ${FRONTEND_URL:http://localhost:5173}/oauth2/callback
+      failure-redirect: ${FRONTEND_URL:http://localhost:5173}/login
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+    tags-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+
+logging:
+  level:
+    org.hibernate.SQL: warn

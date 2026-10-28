@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:vetclinic-test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+  h2:
+    console:
+      enabled: false
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: "test-github-client"
+            client-secret: "test-github-secret"
+            scope: read:user,user:email
+
+app:
+  seed:
+    enabled: false
+  security:
+    jwt:
+      secret: test-only-secret-with-at-least-32-bytes-0123456789
+      issuer: vet-clinic-api-test
+      access-token-ttl: 15m
+    refresh-token-ttl: 7d
+    oauth2:
+      enabled: false
+      success-redirect: http://localhost:5173/oauth2/callback
+      failure-redirect: http://localhost:5173/login
+
+logging:
+  level:
+    org.hibernate.SQL: warn
+    org.springframework.web: warn
