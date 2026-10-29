@@ -47,8 +47,8 @@ public class OwnerController {
         return ownerService.findById(id);
     }
 
-    @GetMapping("/{phone}")
-    @Operation(summary = "Get an owner by id")
+    @GetMapping("/by-phone/{phone}")
+    @Operation(summary = "Get an owner by phone")
     public OwnerResponse getByPhone(@PathVariable String phone) {
         return ownerService.findByPhone(phone);
     }

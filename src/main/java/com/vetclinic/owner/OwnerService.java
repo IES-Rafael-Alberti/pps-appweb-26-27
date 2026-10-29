@@ -32,8 +32,10 @@ public class OwnerService {
         return ownerRepository.findAll(pageable).map(OwnerResponse::from);
     }
 
+    @Transactional(readOnly = true)
     public OwnerResponse findByPhone(String phone) {
-        return OwnerResponse.from(ownerRepository.findByPhone(phone).get());
+        return OwnerResponse.from(ownerRepository.findByPhone(phone)
+                .orElseThrow(() -> NotFoundException.of("Owner", phone)));
     }
 
     public OwnerResponse create(OwnerRequest request) {

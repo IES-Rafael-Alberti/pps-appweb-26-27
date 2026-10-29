@@ -22,7 +22,7 @@ public class Owner {
     private String email;
 
 
-    @Column(length = 30, unique = true)
+    @Column(length = 30)
     private String phone;
 
     @Column(length = 255)
