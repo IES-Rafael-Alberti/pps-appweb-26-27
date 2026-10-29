@@ -136,11 +136,16 @@ Configuración (`application.yml`, todo sobrescribible por entorno):
 | `APP_JWT_SECRET` | secreto de desarrollo | Clave HS256, mínimo 32 bytes. **Obligatorio cambiarla fuera de desarrollo.** |
 | `app.security.jwt.access-token-ttl` | `15m` | Vida del access token. |
 | `app.security.refresh-token-ttl` | `7d` | Vida del refresh token. |
-| `app.security.refresh-cookie-secure` | `false` | Ponlo a `true` con HTTPS. |
-| `app.security.cors-allowed-origins` | `http://localhost:5173,…` | Orígenes permitidos por CORS. |
+| `REFRESH_COOKIE_SECURE` | `false` | Ponlo a `true` con HTTPS. |
+| `REFRESH_COOKIE_SAME_SITE` | `Lax` | Usa `None` (junto con `REFRESH_COOKIE_SECURE=true`) si la SPA y la API están en sitios distintos, p. ej. dos servicios de Render. |
+| `CORS_ALLOWED_ORIGINS` | `http://localhost:5173,…` | Orígenes del frontend permitidos por CORS, separados por comas. |
 | `GITHUB_OAUTH_ENABLED` | `false` | Activa el login con GitHub. |
 | `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | vacíos | Credenciales de la OAuth App de GitHub. |
 | `FRONTEND_URL` | `http://localhost:5173` | Destino al que vuelve el navegador tras el login OAuth2. |
+
+El frontend se configura con `VITE_API_URL` en el momento del build (por ejemplo
+`VITE_API_URL=https://pps-appweb-26-27-b0q7.onrender.com/api/v1`). Consulta
+[`frontend/README.md`](frontend/README.md) para el despliegue en Render.
 
 
 ## Módulos

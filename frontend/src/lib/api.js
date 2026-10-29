@@ -5,7 +5,25 @@
 // token is an httpOnly cookie set by the backend. When a call answers 401 we try a
 // single token rotation and replay the request, so the user does not lose their work.
 
-const BASE = (import.meta.env.VITE_API_URL || '/api/v1').replace(/\/+$/, '')
+// API base used by the browser. VITE_API_URL can be either the API origin
+// (https://api.example.com) or the full base (https://api.example.com/api/v1).
+// When it is not set, requests stay relative so the Vite dev proxy / same-origin
+// deployment keeps working.
+function resolveApiBase() {
+  const configured = (import.meta.env.VITE_API_URL || '/api/v1').trim().replace(/\/+$/, '')
+  if (!configured) return '/api/v1'
+  return configured.endsWith('/api/v1') ? configured : `${configured}/api/v1`
+}
+
+export const API_BASE = resolveApiBase()
+
+// The GitHub handshake must go to the API, not to the SPA origin, when both are
+// deployed on different hosts. With a relative base the dev proxy handles it.
+export const OAUTH_AUTHORIZATION_URL = /^https?:\/\//i.test(API_BASE)
+  ? `${API_BASE.replace(/\/api\/v1$/, '')}/oauth2/authorization/github`
+  : '/oauth2/authorization/github'
+
+const BASE = API_BASE
 
 export class ApiError extends Error {
   constructor(status, problem, fallback) {

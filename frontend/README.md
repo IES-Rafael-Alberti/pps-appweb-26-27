@@ -81,8 +81,35 @@ Copia `.env.example` a `.env` si necesitas apuntar a otra API:
 
 | Variable | Por defecto | Uso |
 | --- | --- | --- |
-| `VITE_API_URL` | `/api/v1` | Base de la API que usa el cliente (en el navegador). |
+| `VITE_API_URL` | `/api/v1` | Base de la API que usa el navegador. Admite la URL completa (`https://api.example.com/api/v1`) o solo el origen (`https://api.example.com`). |
 | `VITE_PROXY_TARGET` | `http://localhost:8080` | Destino del proxy del servidor de desarrollo. |
+
+`VITE_API_URL` se inserta en el bundle **en tiempo de build**: si cambias su valor hay que volver a
+ejecutar `npm run build` (o redesplegar en Render).
+
+### Desplegar en Render
+
+1. Crea un **Static Site** en Render apuntando al directorio `frontend`.
+2. Build command: `npm install && npm run build`.
+3. Publish directory: `dist`.
+4. Añade la variable de entorno del servicio (Environment → Add Environment Variable):
+
+   ```text
+   VITE_API_URL=https://pps-appweb-26-27-b0q7.onrender.com/api/v1
+   ```
+
+5. En el servicio **de la API** permite el origen del frontend y prepara la cookie para peticiones
+   cross-site (sustituye la URL por la del static site):
+
+   ```text
+   CORS_ALLOWED_ORIGINS=https://TU-FRONTEND.onrender.com
+   REFRESH_COOKIE_SECURE=true
+   REFRESH_COOKIE_SAME_SITE=None
+   FRONTEND_URL=https://TU-FRONTEND.onrender.com
+   ```
+
+   `FRONTEND_URL` es el destino al que vuelve el navegador tras el login con GitHub.
+6. Redespliega el frontend después de cambiar `VITE_API_URL`, porque Vite la fija durante el build.
 
 ## Módulos cubiertos
 

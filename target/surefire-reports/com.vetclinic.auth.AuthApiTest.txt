@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.vetclinic.auth.AuthApiTest
+-------------------------------------------------------------------------------
+Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.826 s -- in com.vetclinic.auth.AuthApiTest

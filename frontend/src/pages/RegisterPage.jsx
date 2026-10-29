@@ -4,7 +4,7 @@ import GithubMark from '../components/GithubMark.jsx'
 import Logo from '../components/Logo.jsx'
 import { Field, TextInput } from '../components/Field.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
-import { auth as authApi } from '../lib/api.js'
+import { auth as authApi, OAUTH_AUTHORIZATION_URL } from '../lib/api.js'
 
 const EMPTY = { fullName: '', email: '', phone: '', password: '', repeat: '' }
 
@@ -95,7 +95,7 @@ export default function RegisterPage() {
 
         {githubEnabled && (
           <>
-            <a className="btn btn-dark btn-block github-btn" href="/oauth2/authorization/github">
+            <a className="btn btn-dark btn-block github-btn" href={OAUTH_AUTHORIZATION_URL}>
               <GithubMark /> Registrarme con GitHub
             </a>
             <div className="auth-divider"><span>o crea una cuenta con tu email</span></div>

@@ -17,16 +17,19 @@ public class RefreshCookie {
     private static final String PATH = "/api/v1/auth";
 
     private final boolean secure;
+    private final String sameSite;
 
-    public RefreshCookie(@Value("${app.security.refresh-cookie-secure:false}") boolean secure) {
+    public RefreshCookie(@Value("${app.security.refresh-cookie-secure:false}") boolean secure,
+                         @Value("${app.security.refresh-cookie-same-site:Lax}") String sameSite) {
         this.secure = secure;
+        this.sameSite = sameSite;
     }
 
     public ResponseCookie create(String value, long maxAgeSeconds) {
         return ResponseCookie.from(NAME, value)
                 .httpOnly(true)
                 .secure(secure)
-                .sameSite("Lax")
+                .sameSite(sameSite)
                 .path(PATH)
                 .maxAge(maxAgeSeconds)
                 .build();
