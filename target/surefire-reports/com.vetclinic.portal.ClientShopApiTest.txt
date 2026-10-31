@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.vetclinic.portal.ClientShopApiTest
--------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.635 s -- in com.vetclinic.portal.ClientShopApiTest
