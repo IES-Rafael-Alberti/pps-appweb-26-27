@@ -1,0 +1,6 @@
+<<<<<<< HEAD
+const descuento = 0.15;
+=======
+const descuento = 0.20;
+>>>>>>> feature/promo-navidad
+
